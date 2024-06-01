@@ -5,12 +5,12 @@ const vars = process.env;
 const configSchema = z.object({
     auth: z.object({
         keycloak: z.object({
-            clientId: z.string(),
-            secret: z.string(),
+            clientId: z.string().trim().min(1),
+            secret: z.string().trim().min(1),
             issuer: z.string().url(),
         }),
         next: z.object({
-            secret: z.string(),
+            secret: z.string().trim().min(1),
         }),
     }),
     apiUrl: z.string().url(),

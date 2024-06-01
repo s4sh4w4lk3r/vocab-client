@@ -3,7 +3,5 @@ import { auth } from "@/auth";
 export default async function Home() {
     const session = await auth();
 
-    console.log(session?.user?.id);
-
-    return <main></main>;
+    return <main>{JSON.stringify(session)}</main>;
 }
