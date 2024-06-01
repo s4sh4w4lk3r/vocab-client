@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import keycloak from "next-auth/providers/keycloak";
-import vocabConfig from "./config/vocabConfig";
+import vocabConfig from "./config/serverConfig";
 import sessionSchema from "./zodSchemas/sessionSchema";
 
 const kcConfig = vocabConfig.auth.keycloak;

@@ -1,3 +1,4 @@
+import "server-only";
 import { z } from "zod";
 
 const vars = process.env;
@@ -13,7 +14,9 @@ const configSchema = z.object({
             secret: z.string().trim().min(1),
         }),
     }),
-    apiUrl: z.string().url(),
+    api: z.object({
+        baseUrl: z.string().url(),
+    }),
 });
 
 const config: z.infer<typeof configSchema> = {
@@ -27,7 +30,9 @@ const config: z.infer<typeof configSchema> = {
             secret: vars.AUTH_SECRET!,
         },
     },
-    apiUrl: vars.API_URL!,
+    api: {
+        baseUrl: vars.API_URL!,
+    },
 };
 
 export default configSchema.parse(config);
