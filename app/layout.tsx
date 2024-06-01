@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import RootLayoutProviders from "@/providers/RootLayoutProviders";
 import type { Metadata } from "next";
 import { type NextFont } from "next/dist/compiled/@next/font";
@@ -18,7 +19,10 @@ export default function RootLayout({
     return (
         <html lang="ru">
             <body className={inter.className}>
-                <RootLayoutProviders>{children}</RootLayoutProviders>
+                <RootLayoutProviders>
+                    <Header />
+                    {children}
+                </RootLayoutProviders>
             </body>
         </html>
     );

@@ -6,5 +6,19 @@ export default function AuthBtn() {
     const session = useSession();
     const isAuthenticated = session.status == "authenticated";
 
-    return isAuthenticated ? <Button onClick={() => signOut()}>Выйти</Button> : <Button onClick={() => signIn("keycloak")}>Войти</Button>;
+    return isAuthenticated ? (
+        <Button
+            colorScheme="red"
+            onClick={() => signOut()}
+        >
+            Выйти
+        </Button>
+    ) : (
+        <Button
+            colorScheme="blue"
+            onClick={() => signIn("keycloak")}
+        >
+            Войти
+        </Button>
+    );
 }
