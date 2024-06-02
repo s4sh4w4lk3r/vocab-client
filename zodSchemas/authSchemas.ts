@@ -12,7 +12,7 @@ export const sessionSchema = z.object({
 });
 
 export const tokenSchema = z.object({
-    idToken: z.string().uuid(),
+    idToken: z.string().trim().min(10),
     accessToken: z.string().trim().min(10),
     refreshToken: z.string().trim().min(10),
     expiresAt: z.number().gte(1),
