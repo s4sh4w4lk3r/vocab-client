@@ -1,14 +1,6 @@
 import { z } from "zod";
+import { getStatementPairSchema } from "./statementsPairsSchema";
 
-const getStatementPairSchema = z.object({
-    id: z.number(),
-    source: z.string(),
-    target: z.string(),
-    statementCategory: z.number(),
-    guessingLevel: z.number(),
-    lastModified: z.string(),
-    statementsDictionaryId: z.number(),
-});
 export const getDictionarySchema = z.object({
     id: z.coerce.bigint(),
     name: z.string().trim().min(1),
