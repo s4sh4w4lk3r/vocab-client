@@ -1,5 +1,5 @@
 "use client";
-import { Box, HStack, useColorModeValue } from "@chakra-ui/react";
+import { HStack, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import AuthButton from "./AuthButton";
 import ThemeSwitchButton from "./ThemeSwitchButton";

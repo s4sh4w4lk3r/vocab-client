@@ -3,8 +3,12 @@ import { getDictionairesSchema } from "@/zodSchemas/dictionariesSchema";
 import { resultVocabSchema } from "@/zodSchemas/resultVocabSchema";
 import { z } from "zod";
 
-export async function getDictionaries(accessToken: string, offset: number): Promise<z.infer<typeof getDictionairesSchema>> {
-    const response = await fetch(`${serverConfig.api.baseUrl}/dictionaries?offset=${offset}`, {
+export async function getDictionaries(
+    accessToken: string,
+    offset: number,
+    appendTopStatements: boolean
+): Promise<z.infer<typeof getDictionairesSchema>> {
+    const response = await fetch(`${serverConfig.api.baseUrl}/dictionaries?offset=${offset}&appendTopStatements=${appendTopStatements}`, {
         headers: {
             "Content-Type": "application/json;charset=utf-8",
             "Authorization": `Bearer ${accessToken}`,

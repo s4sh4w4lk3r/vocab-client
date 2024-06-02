@@ -12,6 +12,7 @@ const configSchema = z.object({
         }),
         next: z.object({
             secret: z.string().trim().min(1),
+            url: z.string().url(),
         }),
     }),
     api: z.object({
@@ -28,6 +29,7 @@ const config: z.infer<typeof configSchema> = {
         },
         next: {
             secret: vars.AUTH_SECRET!,
+            url: vars.AUTH_URL!,
         },
     },
     api: {
