@@ -1,9 +1,9 @@
 import NextAuth from "next-auth";
 import keycloak from "next-auth/providers/keycloak";
 import vocabConfig from "./config/serverConfig";
-import sessionSchema from "./zodSchemas/sessionSchema";
+import { sessionSchema, tokenSchema } from "./zodSchemas/authSchemas";
 import { JWT } from "next-auth/jwt";
-import serverConfig from "./config/serverConfig";
+import requestRefreshOfAccessToken from "./utils/server/requestRefreshOfAccessToken";
 
 const kcConfig = vocabConfig.auth.keycloak;
 
@@ -17,8 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     ],
 
     session: {
-        // TODO: Почекать тут
-        maxAge: 60 * 60 * 2,
+        maxAge: 60 * 60 * 24 * 7,
     },
 
     callbacks: {
@@ -28,6 +27,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 token.accessToken = account.access_token!;
                 token.refreshToken = account.refresh_token!;
                 token.expiresAt = account.expires_at!;
+
+                const da = await tokenSchema.parseAsync({
+                    idToken: token.idToken,
+                    accessToken: token.accessToken,
+                    refreshToken: token.refreshToken,
+                    expiresAt: token.expiresAt,
+                });
             }
 
             if (Date.now() < (token.expiresAt as number) * 1000 - 60 * 1000) {
@@ -52,9 +58,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     console.error("Error refreshing access token", error);
                     return { ...token, error: "RefreshAccessTokenError" };
                 }
-                return token;
             }
         },
+
         async session({ session, token }) {
             session.accessToken = token.accessToken as string;
             const tokenPayload = JSON.parse(Buffer.from(session.accessToken?.split(".")[1], "base64").toString());
@@ -67,19 +73,3 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
     },
 });
-
-export function requestRefreshOfAccessToken(token: JWT) {
-    const kcConfig = serverConfig.auth.keycloak;
-
-    return fetch(`${kcConfig.issuer}/protocol/openid-connect/token`, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-            client_id: kcConfig.clientId,
-            client_secret: kcConfig.secret,
-            grant_type: "refresh_token",
-            refresh_token: token.refreshToken as string,
-        }),
-        method: "POST",
-        cache: "no-store",
-    });
-}

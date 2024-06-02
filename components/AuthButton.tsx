@@ -1,6 +1,7 @@
 "use client";
+import federatedLogout from "@/utils/client/federatedLogout";
 import { Button } from "@chakra-ui/react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 export default function AuthBtn() {
     const session = useSession();
@@ -9,7 +10,7 @@ export default function AuthBtn() {
     return isAuthenticated ? (
         <Button
             colorScheme="red"
-            onClick={() => signOut()}
+            onClick={() => federatedLogout()}
         >
             Выйти
         </Button>
