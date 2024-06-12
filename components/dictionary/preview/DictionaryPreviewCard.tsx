@@ -1,7 +1,7 @@
 "use client";
-
 import { getDictionarySchema } from "@/zodSchemas/dictionariesSchema";
-import { Card, CardBody, CardHeader, Heading, Text } from "@chakra-ui/react";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { Card, CardBody, CardFooter, CardHeader, Heading, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { z } from "zod";
 
@@ -29,6 +29,15 @@ export default function DictionaryPreviewCard({ id, name, statementPairs }: Type
                     <Text key={x.id}>{`${x.source} - ${x.target}`}</Text>
                 ))}
             </CardBody>
+
+            <CardFooter justifyContent={"flex-end"}>
+                {isHovered ? (
+                    <>
+                        <DeleteIcon onClick={() => alert("del")}></DeleteIcon>
+                        <EditIcon onClick={() => alert("rename")}></EditIcon>
+                    </>
+                ) : null}
+            </CardFooter>
         </Card>
     );
 }

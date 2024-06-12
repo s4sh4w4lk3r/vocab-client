@@ -1,8 +1,9 @@
-import { getDictionaries, getStatementPairs } from "@/api/dictionaries";
+import { getDictionaries } from "@/api/fetch/dictionaries";
 import { auth } from "@/auth";
-import DictionaryPreviewCard from "@/components/dictionary/DictionaryPreviewCard";
+import AddDictionaryButton from "@/components/dictionary/AddDictionaryButton";
+import DictionaryPreviewCard from "@/components/dictionary/preview/DictionaryPreviewCard";
 
-import { Flex } from "@chakra-ui/react";
+import { Flex, HStack } from "@chakra-ui/react";
 import React from "react";
 
 export default async function page() {
@@ -12,12 +13,28 @@ export default async function page() {
     }
 
     const dictionaries = await getDictionaries({ accessToken: session.accessToken, appendTopStatements: true, offset: 0 });
+
     const cards = dictionaries.map(x => (
         <DictionaryPreviewCard
             key={x.id}
             {...x}
         ></DictionaryPreviewCard>
     ));
-    // TODO: добавить возможность упорядочивать элементы и сохр в бд.
-    return <Flex gap={7}>{cards}</Flex>;
+
+    return (
+        <>
+            <HStack
+                justifyContent={"flex-end"}
+                m={5}
+            >
+                <AddDictionaryButton onClick={null!} />
+            </HStack>
+            <Flex
+                gap={7}
+                mx={10}
+            >
+                {cards}
+            </Flex>
+        </>
+    );
 }

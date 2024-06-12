@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import RootLayoutProviders from "@/providers/RootLayoutProviders";
 import type { Metadata } from "next";
@@ -18,10 +19,14 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru">
-            <body className={inter.className}>
+            <body
+                className={inter.className}
+                style={{ minHeight: "100%", position: "relative" }}
+            >
                 <RootLayoutProviders>
                     <Header />
                     {children}
+                    <Footer />
                 </RootLayoutProviders>
             </body>
         </html>
