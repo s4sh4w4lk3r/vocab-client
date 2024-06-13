@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import RootLayoutProviders from "@/providers/RootLayoutProviders";
 import type { Metadata } from "next";
 import { type NextFont } from "next/dist/compiled/@next/font";

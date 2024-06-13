@@ -1,7 +1,7 @@
 import serverConfig from "@/config/serverConfig";
-import { AccessTokenParam, getHeadersJsonAccessToken } from "../sharedTypes";
 import { getStatementPairsSchema } from "@/zodSchemas/statementsPairsSchema";
 import { z } from "zod";
+import { AccessTokenParam, getHeadersJsonAccessToken } from "../sharedTypes";
 
 type getStatementPairsParams = { dictionaryId: bigint; offset: number } & AccessTokenParam;
 type getStatementPairsReturnType = z.infer<typeof getStatementPairsSchema>;

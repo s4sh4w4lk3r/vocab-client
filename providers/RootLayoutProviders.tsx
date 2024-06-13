@@ -1,6 +1,6 @@
 "use client";
 
-import SessionGuard from "@/components/SessionGuard";
+import SessionGuard from "@/components/layout/SessionGuard";
 import { ChakraProvider } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
 
