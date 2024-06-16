@@ -33,6 +33,7 @@ export default function Header() {
             <HStack
                 ml={32}
                 w={"full"}
+                as={"nav"}
             >
                 <Link href={"/dictionaries"}>
                     <Text fontSize={16}>Словари</Text>
@@ -52,3 +53,4 @@ export default function Header() {
         </HStack>
     );
 }
+//FIXME На мобилке в херере не помещается навигация

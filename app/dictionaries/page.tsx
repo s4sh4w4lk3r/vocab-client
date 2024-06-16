@@ -37,6 +37,7 @@ export default async function page() {
         <>
             <HStack
                 justifyContent={"center"}
+                alignItems={"flex-start"}
                 m={5}
             >
                 <HomePanel></HomePanel>

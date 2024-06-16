@@ -27,24 +27,6 @@ export default function DictionaryPreviewCard({
 }: Type) {
     const [isHovered, setIsHovered] = useState(false);
     const disclosure = useDisclosure();
-    const [modalAction, setAction] = useState();
-
-    function handleModalActionChange({
-        action,
-    }: {
-        action: "delete" | "rename";
-    }) {
-        switch (action) {
-            case "delete":
-                break;
-
-            case "rename":
-                break;
-
-            default:
-                break;
-        }
-    }
 
     return (
         <>
