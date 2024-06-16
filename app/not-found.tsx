@@ -1,3 +1,4 @@
+import GoToMainPageButton from "@/components/buttons/GoToMainPageButton";
 import { Button, Text, VStack } from "@chakra-ui/react";
 
 export default function NotFound() {
@@ -8,7 +9,7 @@ export default function NotFound() {
         >
             <Text fontSize={80}>{"404"}</Text>
             <Text fontSize={64}>{"Страница не найдена :("}</Text>
-            <Button size={"lg"}>На главную</Button>
+            <GoToMainPageButton />
         </VStack>
     );
 }

@@ -16,10 +16,13 @@ export async function createDictionary({ name }: { name: string }) {
     const headers = new Headers();
     headers.append(bearerHeader.key, bearerHeader.value(session.accessToken));
 
-    const respone = await fetch(`${apiUrl}/dictionaries?name=${encodeURI(name)}`, {
-        method: "POST",
-        headers: headers,
-    });
+    const respone = await fetch(
+        `${apiUrl}/dictionaries?name=${encodeURI(name)}`,
+        {
+            method: "POST",
+            headers: headers,
+        }
+    );
 
     if (!respone.ok) {
         throw respone;
@@ -28,12 +31,15 @@ export async function createDictionary({ name }: { name: string }) {
     revalidateTag(RevalidationTags.Dictionaries);
 }
 
-export async function deleteDictionary({ dictionaryId }: { dictionaryId: bigint }) {
+export async function deleteDictionary({
+    dictionaryId,
+}: {
+    dictionaryId: bigint;
+}) {
     const session = await checkIsAuthenticated();
     if (!session.isAuthenticated) {
         throw "Not authenticated";
     }
-
     const headers = new Headers();
     headers.append(bearerHeader.key, bearerHeader.value(session.accessToken));
 
@@ -49,7 +55,13 @@ export async function deleteDictionary({ dictionaryId }: { dictionaryId: bigint 
     revalidateTag(RevalidationTags.Dictionaries);
 }
 
-export async function renameDictionary({ dictionaryId, name }: { dictionaryId: bigint; name: string }) {
+export async function renameDictionary({
+    dictionaryId,
+    name,
+}: {
+    dictionaryId: bigint;
+    name: string;
+}) {
     const session = await checkIsAuthenticated();
     if (!session.isAuthenticated) {
         throw "Not authenticated";
@@ -58,16 +70,26 @@ export async function renameDictionary({ dictionaryId, name }: { dictionaryId: b
     const headers = new Headers();
     headers.append(bearerHeader.key, bearerHeader.value(session.accessToken));
 
-    const respone = await fetch(`${apiUrl}/dictionaries/${dictionaryId}/set/name/${encodeURI(name)}`, {
-        method: "PATCH",
-    });
+    const respone = await fetch(
+        `${apiUrl}/dictionaries/${dictionaryId}/set/name/${encodeURI(name)}`,
+        {
+            method: "PATCH",
+            headers: headers,
+        }
+    );
 
     if (!respone.ok) {
         throw respone;
     }
+
+    revalidateTag(RevalidationTags.Dictionaries);
 }
 
-async function checkIsAuthenticated(): Promise<{ isAuthenticated: true; accessToken: string } | { isAuthenticated: false }> {
+async function checkIsAuthenticated(): Promise<
+    { isAuthenticated: true; accessToken: string } | { isAuthenticated: false }
+> {
     const session = await auth();
-    return session ? { isAuthenticated: true, accessToken: session.accessToken } : { isAuthenticated: false };
+    return session
+        ? { isAuthenticated: true, accessToken: session.accessToken }
+        : { isAuthenticated: false };
 }

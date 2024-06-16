@@ -1,5 +1,6 @@
 "use client";
 
+import GoToMainPageButton from "@/components/buttons/GoToMainPageButton";
 import { VStack, Button, Text } from "@chakra-ui/react";
 
 export default function Error() {
@@ -10,7 +11,7 @@ export default function Error() {
         >
             <Text fontSize={80}>{"500"}</Text>
             <Text fontSize={64}>{"Произошла ошибка :("}</Text>
-            <Button size={"lg"}>На главную</Button>
+            <GoToMainPageButton />
         </VStack>
     );
 }

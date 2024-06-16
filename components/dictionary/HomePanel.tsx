@@ -15,7 +15,9 @@ export default function HomePanel() {
                 onChange={e => setQuery(e.target.value)}
                 w={300}
             ></Input>
-            <Button onClick={() => createDictionary({ name: query })}>
+            <Button
+                onClick={async () => await createDictionary({ name: query })}
+            >
                 <AddIcon />
             </Button>
         </HStack>

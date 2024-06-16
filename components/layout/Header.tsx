@@ -1,8 +1,8 @@
 "use client";
 import { HStack, Text, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
-import AuthButton from "./AuthButton";
-import ThemeSwitchButton from "./ThemeSwitchButton";
+import AuthButton from "../buttons/AuthButton";
+import ThemeSwitchButton from "../buttons/ThemeSwitchButton";
 import Link from "next/link";
 import clientConfig from "@/config/clientConfig";
 

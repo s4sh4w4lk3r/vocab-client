@@ -1,18 +1,39 @@
 "use client";
-import { deleteDictionary } from "@/api/serverActions/dictionaries";
 import { getDictionarySchema } from "@/zodSchemas/dictionariesSchema";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { Card, CardBody, CardFooter, CardHeader, Heading, Modal, ModalBody, Text, useDisclosure } from "@chakra-ui/react";
+import {
+    Card,
+    CardBody,
+    CardHeader,
+    HStack,
+    Heading,
+    Modal,
+    ModalBody,
+    Text,
+    useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { z } from "zod";
+import DeleteDictionaryButton from "../../buttons/DeleteDictionaryButton";
+import RenameDictionaryButton from "../../buttons/RenameDictionaryButton";
 
-type Type = Pick<z.infer<typeof getDictionarySchema>, "id" | "name" | "statementPairs">;
-export default function DictionaryPreviewCard({ id, name, statementPairs }: Type) {
+type Type = Pick<
+    z.infer<typeof getDictionarySchema>,
+    "id" | "name" | "statementPairs"
+>;
+export default function DictionaryPreviewCard({
+    id,
+    name,
+    statementPairs,
+}: Type) {
     const [isHovered, setIsHovered] = useState(false);
     const disclosure = useDisclosure();
     const [modalAction, setAction] = useState();
 
-    function handleModalActionChange({ action }: { action: "delete" | "rename" }) {
+    function handleModalActionChange({
+        action,
+    }: {
+        action: "delete" | "rename";
+    }) {
         switch (action) {
             case "delete":
                 break;
@@ -29,6 +50,7 @@ export default function DictionaryPreviewCard({ id, name, statementPairs }: Type
         <>
             <Card
                 maxW={"sm"}
+                minW={72}
                 borderWidth={"1px"}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -48,14 +70,24 @@ export default function DictionaryPreviewCard({ id, name, statementPairs }: Type
                     ))}
                 </CardBody>
 
-                <CardFooter justifyContent={"flex-end"}>
-                    {isHovered ? (
-                        <>
-                            <DeleteIcon onClick={() => deleteDictionary({ dictionaryId: id })}></DeleteIcon>
-                            <EditIcon onClick={() => alert("rename")}></EditIcon>
-                        </>
-                    ) : null}
-                </CardFooter>
+                <HStack
+                    justifyContent={"center"}
+                    w={"full"}
+                    flexDirection={"row"}
+                    gap={3}
+                    p={5}
+                    h={"35px"}
+                    mb={3}
+                >
+                    <RenameDictionaryButton
+                        dictionaryId={id}
+                        isHidden={!isHovered}
+                    />
+                    <DeleteDictionaryButton
+                        dictionaryId={id}
+                        isHidden={!isHovered}
+                    />
+                </HStack>
             </Card>
 
             <Modal {...disclosure}>
