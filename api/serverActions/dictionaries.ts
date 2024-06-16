@@ -2,7 +2,9 @@
 
 import { auth } from "@/auth";
 import serverConfig from "@/config/serverConfig";
-import { bearerHeader, jsonContentTypeHeader } from "../sharedTypes";
+import { bearerHeader } from "../sharedTypes";
+import { revalidateTag } from "next/cache";
+import RevalidationTags from "./revalidationTags";
 
 const apiUrl = serverConfig.api.baseUrl;
 export async function createDictionary({ name }: { name: string }) {
@@ -22,6 +24,8 @@ export async function createDictionary({ name }: { name: string }) {
     if (!respone.ok) {
         throw respone;
     }
+
+    revalidateTag(RevalidationTags.Dictionaries);
 }
 
 export async function deleteDictionary({ dictionaryId }: { dictionaryId: bigint }) {
@@ -41,6 +45,8 @@ export async function deleteDictionary({ dictionaryId }: { dictionaryId: bigint 
     if (!respone.ok) {
         throw respone;
     }
+
+    revalidateTag(RevalidationTags.Dictionaries);
 }
 
 export async function renameDictionary({ dictionaryId, name }: { dictionaryId: bigint; name: string }) {

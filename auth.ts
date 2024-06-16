@@ -73,3 +73,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
     },
 });
+// FIXME: когда долго  не заходишь, токен не может рефрешнуться, в постмане то же самое

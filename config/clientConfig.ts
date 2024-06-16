@@ -6,14 +6,20 @@ const schema = z.object({
         baseUrl: z.string().url(),
         webSocketUrl: z.string().url(),
     }),
+    auth: z.object({
+        accountUrl: z.string().url(),
+    }),
 });
 
-const authority = "api.vocab.rlx";
+const apiAuthority = "api.vocab.rlx";
 
 const config: z.infer<typeof schema> = {
     api: {
-        baseUrl: `http://${authority}`,
-        webSocketUrl: `ws://${authority}/ws`,
+        baseUrl: `http://${apiAuthority}`,
+        webSocketUrl: `ws://${apiAuthority}/ws`,
+    },
+    auth: {
+        accountUrl: "http://auth.vocab.rlx/realms/vocab/account/",
     },
 };
 
