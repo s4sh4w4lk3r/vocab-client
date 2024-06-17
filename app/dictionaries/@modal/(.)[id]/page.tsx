@@ -2,6 +2,7 @@ import { getDictionary } from "@/api/fetch/dictionaries";
 import { getStatementPairs } from "@/api/fetch/statementsPairs";
 import { auth } from "@/auth";
 import DictionaryCard from "@/components/dictionary/DictionaryCard";
+import DictionaryModalWrapper from "@/components/dictionary/DictionaryModalWrapper";
 import React from "react";
 
 export default async function page({ params }: { params: { id: string } }) {
@@ -27,11 +28,13 @@ export default async function page({ params }: { params: { id: string } }) {
     ]);
 
     return (
-        <DictionaryCard
-            id={dictionary.id}
-            name={dictionary.name}
-            statementPairs={statementPairs}
-            key={dictionary.id}
-        ></DictionaryCard>
+        <DictionaryModalWrapper>
+            <DictionaryCard
+                id={dictionary.id}
+                name={dictionary.name}
+                statementPairs={statementPairs}
+                key={dictionary.id}
+            ></DictionaryCard>
+        </DictionaryModalWrapper>
     );
 }

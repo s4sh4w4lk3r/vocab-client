@@ -50,8 +50,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         ...token,
                         idToken: tokens.id_token,
                         accessToken: tokens.access_token,
-                        expiresAt: Math.floor(Date.now() / 1000 + (tokens.expires_in as number)),
-                        refreshToken: tokens.refresh_token ?? token.refreshToken,
+                        expiresAt: Math.floor(
+                            Date.now() / 1000 + (tokens.expires_in as number)
+                        ),
+                        refreshToken:
+                            tokens.refresh_token ?? token.refreshToken,
                     };
                     return updatedToken;
                 } catch (error) {
@@ -63,7 +66,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         async session({ session, token }) {
             session.accessToken = token.accessToken as string;
-            const tokenPayload = JSON.parse(Buffer.from(session.accessToken?.split(".")[1], "base64").toString());
+            const tokenPayload = JSON.parse(
+                Buffer.from(
+                    session.accessToken?.split(".")[1],
+                    "base64"
+                ).toString()
+            );
             session.user.id = tokenPayload.sub;
             session.user.username = tokenPayload.preferred_username;
 
@@ -73,4 +81,3 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
     },
 });
-// FIXME: когда долго  не заходишь, токен не может рефрешнуться, в постмане то же самое

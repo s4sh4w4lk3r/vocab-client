@@ -4,6 +4,7 @@ import HomePanel from "@/components/dictionary/HomePanel";
 import DictionaryPreviewCard from "@/components/dictionary/preview/DictionaryPreviewCard";
 import { HStack } from "@chakra-ui/react";
 import { Metadata } from "next";
+import Link from "next/link";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -26,11 +27,16 @@ export default async function page() {
         a.lastModified.getTime() < b.lastModified.getTime() ? 1 : -1
     );
 
-    const cards = dictionaries.map(x => (
-        <DictionaryPreviewCard
+    const dictionaryCards = dictionaries.map(x => (
+        <Link
             key={x.id}
-            {...x}
-        ></DictionaryPreviewCard>
+            href={`/dictionaries/${x.id}`}
+        >
+            <DictionaryPreviewCard
+                key={x.id}
+                {...x}
+            ></DictionaryPreviewCard>
+        </Link>
     ));
 
     return (
@@ -48,7 +54,7 @@ export default async function page() {
                 mx={10}
                 flexWrap={"wrap"}
             >
-                {cards}
+                {dictionaryCards}
             </HStack>
         </>
     );
