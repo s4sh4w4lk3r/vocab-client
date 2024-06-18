@@ -28,10 +28,9 @@ export default async function page({ params }: { params: { id: string } }) {
     ]);
 
     return (
-        <DictionaryModalWrapper>
+        <DictionaryModalWrapper dictionaryName={dictionary.name}>
             <DictionaryCard
                 id={dictionary.id}
-                name={dictionary.name}
                 statementPairs={statementPairs}
                 key={dictionary.id}
             ></DictionaryCard>

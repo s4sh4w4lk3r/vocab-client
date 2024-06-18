@@ -15,8 +15,10 @@ import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
 export default function DictionaryModalWrapper({
+    dictionaryName,
     children,
 }: {
+    dictionaryName: string;
     children: ReactNode;
 }) {
     const router = useRouter();
@@ -33,7 +35,7 @@ export default function DictionaryModalWrapper({
         >
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Modal Title</ModalHeader>
+                <ModalHeader>{dictionaryName}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>{children}</ModalBody>
 
