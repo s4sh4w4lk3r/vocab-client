@@ -1,6 +1,13 @@
 "use client";
 import { getDictionarySchema } from "@/zodSchemas/dictionariesSchema";
-import { Button, Card, CardBody, CardHeader, HStack } from "@chakra-ui/react";
+import {
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    HStack,
+    useToast,
+} from "@chakra-ui/react";
 import { Text, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { z } from "zod";
@@ -17,6 +24,7 @@ export default function DictionaryPreviewCard(params: Type) {
 
     const router = useRouter();
     const [isHovered, setIsHovered] = useState(false);
+    const toast = useToast();
 
     function handleMouseEnter() {
         setIsHovered(true);
@@ -29,6 +37,14 @@ export default function DictionaryPreviewCard(params: Type) {
 
     function handleCardClick() {
         router.push(`/dictionaries/${id}`);
+    }
+
+    async function handleDelete(
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) {
+        e.stopPropagation();
+        await deleteDictionary({ dictionaryId: id });
+        toast({ status: "success", duration: 2000, title: "Словарь удален" });
     }
 
     const statementsElement = statementPairs.map(x => (
@@ -48,10 +64,7 @@ export default function DictionaryPreviewCard(params: Type) {
             top={0}
             mr={1}
             mt={1}
-            onClick={async e => {
-                e.stopPropagation();
-                await deleteDictionary({ dictionaryId: id });
-            }}
+            onClick={handleDelete}
         >
             <DeleteIcon></DeleteIcon>
         </Button>

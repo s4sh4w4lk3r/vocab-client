@@ -35,17 +35,17 @@ export default function DictionaryCard({ id, name, statementPairs }: Type) {
 
     const nameElement = name ? <Center>{name}</Center> : undefined;
 
-    function setIsTargetHiddenHandler() {
+    function handleSetIsTargetHidden() {
         setIsTargetHidden(!isTargetHidden);
     }
 
-    async function deleteDictionaryHandler() {
+    async function handleDelete() {
         await deleteDictionary({ dictionaryId: id });
         router.replace("/dictionaries");
     }
 
-    async function renameDictionaryHandler() {}
-    function importStatementsHandler() {}
+    async function handleRename() {}
+    function handleImport() {}
 
     const buttons = (
         <Menu>
@@ -56,14 +56,12 @@ export default function DictionaryCard({ id, name, statementPairs }: Type) {
                 Actions
             </MenuButton>
             <MenuList>
-                <MenuItem onClick={setIsTargetHiddenHandler}>
+                <MenuItem onClick={handleSetIsTargetHidden}>
                     {isTargetHidden ? "Показать перевод" : "Скрыть перевод"}
                 </MenuItem>
-                <MenuItem onClick={importStatementsHandler}>Импорт</MenuItem>
-                <MenuItem onClick={renameDictionaryHandler}>
-                    Переименовать
-                </MenuItem>
-                <MenuItem onClick={deleteDictionaryHandler}>Удалить</MenuItem>
+                <MenuItem onClick={handleImport}>Импорт</MenuItem>
+                <MenuItem onClick={handleRename}>Переименовать</MenuItem>
+                <MenuItem onClick={handleDelete}>Удалить</MenuItem>
             </MenuList>
         </Menu>
     );
