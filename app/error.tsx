@@ -1,7 +1,7 @@
 "use client";
 
 import GoToMainPageButton from "@/components/buttons/GoToMainPageButton";
-import { VStack, Button, Text } from "@chakra-ui/react";
+import { VStack, Text } from "@chakra-ui/react";
 
 export default function Error() {
     return (

@@ -1,5 +1,5 @@
 import GoToMainPageButton from "@/components/buttons/GoToMainPageButton";
-import { Button, Text, VStack } from "@chakra-ui/react";
+import { Text, VStack } from "@chakra-ui/react";
 
 export default function NotFound() {
     return (
