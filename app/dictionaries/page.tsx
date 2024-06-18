@@ -1,7 +1,7 @@
 import { getDictionaries } from "@/api/fetch/dictionaries";
 import { auth } from "@/auth";
 import HomePanel from "@/components/dictionary/HomePanel";
-import DictionaryPreviewCard from "@/components/dictionary/preview/DictionaryPreviewCard";
+import DictionaryPreviewCard from "@/components/dictionary/DictionaryPreviewCard";
 import { HStack } from "@chakra-ui/react";
 import { Metadata } from "next";
 import React from "react";

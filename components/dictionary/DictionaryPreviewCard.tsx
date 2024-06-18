@@ -1,10 +1,12 @@
 "use client";
 import { getDictionarySchema } from "@/zodSchemas/dictionariesSchema";
-import { Card, CardBody, CardHeader, HStack } from "@chakra-ui/react";
+import { Button, Card, CardBody, CardHeader, HStack } from "@chakra-ui/react";
 import { Text, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { deleteDictionary } from "@/api/serverActions/dictionaries";
 
 type Type = Pick<
     z.infer<typeof getDictionarySchema>,
@@ -25,7 +27,7 @@ export default function DictionaryPreviewCard(params: Type) {
         setIsHovered(false);
     }
 
-    function handleClick() {
+    function handleCardClick() {
         router.push(`/dictionaries/${id}`);
     }
 
@@ -37,6 +39,24 @@ export default function DictionaryPreviewCard(params: Type) {
         ? { borderColor: "pink", cursor: "pointer" }
         : undefined;
 
+    const deleteButton = isHovered ? (
+        <Button
+            variant={"ghost"}
+            borderRadius={150}
+            position={"absolute"}
+            right={0}
+            top={0}
+            mr={1}
+            mt={1}
+            onClick={async e => {
+                e.stopPropagation();
+                await deleteDictionary({ dictionaryId: id });
+            }}
+        >
+            <DeleteIcon></DeleteIcon>
+        </Button>
+    ) : undefined;
+
     return (
         <Card
             maxW={"sm"}
@@ -44,10 +64,12 @@ export default function DictionaryPreviewCard(params: Type) {
             borderWidth={"1px"}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            onClick={handleClick}
+            onClick={handleCardClick}
             _hover={hoverStyle}
         >
             <CardHeader>
+                {deleteButton}
+
                 <Heading
                     size={"md"}
                     noOfLines={2}
@@ -55,6 +77,7 @@ export default function DictionaryPreviewCard(params: Type) {
                     {name}
                 </Heading>
             </CardHeader>
+
             <CardBody>{statementsElement}</CardBody>
 
             <HStack
