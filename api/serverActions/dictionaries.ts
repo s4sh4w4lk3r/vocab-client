@@ -15,9 +15,8 @@ export async function createDictionary({ name }: { name: string }) {
 
     const headers = new Headers();
     headers.append(bearerHeader.key, bearerHeader.value(session.accessToken));
-
     const respone = await fetch(
-        `${apiUrl}/dictionaries?name=${encodeURI(name)}`,
+        `${apiUrl}/dictionaries?name=${encodeURIComponent(name)}`,
         {
             method: "POST",
             headers: headers,
@@ -71,7 +70,9 @@ export async function renameDictionary({
     headers.append(bearerHeader.key, bearerHeader.value(session.accessToken));
 
     const respone = await fetch(
-        `${apiUrl}/dictionaries/${dictionaryId}/set/name/${encodeURI(name)}`,
+        `${apiUrl}/dictionaries/${dictionaryId}/set/name/${encodeURIComponent(
+            name
+        )}`,
         {
             method: "PATCH",
             headers: headers,
