@@ -4,22 +4,31 @@ import {
     getDictionarySchema,
 } from "@/zodSchemas/dictionariesSchema";
 import { z } from "zod";
-import { AccessTokenParam, getHeadersJsonAccessToken } from "../sharedTypes";
+import {
+    AccessTokenParam,
+    AppendAction,
+    getHeadersJsonAccessToken,
+} from "../sharedTypes";
 
 export async function getDictionaries({
     accessToken,
-    appendTopStatements,
+    appendAction,
+    searchQuery,
     offset,
 }: {
     offset: number;
-    appendTopStatements: boolean;
-} & AccessTokenParam): Promise<z.infer<typeof getDictionairesSchema>> {
-    const response = await fetch(
-        `${serverConfig.api.baseUrl}/dictionaries?offset=${offset}&appendTopStatements=${appendTopStatements}`,
-        {
-            headers: getHeadersJsonAccessToken({ accessToken }),
-        }
-    );
+    searchQuery?: string;
+} & AccessTokenParam &
+    AppendAction): Promise<z.infer<typeof getDictionairesSchema>> {
+    let path = `/dictionaries?offset=${offset}&appendAction=${appendAction}`;
+
+    if (searchQuery) {
+        path += `&searchQuery=${searchQuery}`;
+    }
+
+    const response = await fetch(`${serverConfig.api.baseUrl}${path}`, {
+        headers: getHeadersJsonAccessToken({ accessToken }),
+    });
 
     if (!response.ok) {
         throw response;
@@ -33,7 +42,8 @@ export async function getDictionary({
     dictionaryId,
 }: {
     dictionaryId: BigInt;
-} & AccessTokenParam): Promise<z.infer<typeof getDictionarySchema>> {
+} & AccessTokenParam &
+    AppendAction): Promise<z.infer<typeof getDictionarySchema>> {
     const response = await fetch(
         `${serverConfig.api.baseUrl}/dictionaries/${dictionaryId}`,
         {

@@ -19,7 +19,7 @@ export default async function page() {
     const dictionaries = (
         await getDictionaries({
             accessToken: session.accessToken,
-            appendTopStatements: true,
+            appendAction: "Preview",
             offset: 0,
         })
     ).sort((a, b) =>
