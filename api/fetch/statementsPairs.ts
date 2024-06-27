@@ -1,20 +1,18 @@
-import serverConfig from "@/config/serverConfig";
 import { getStatementPairsSchema } from "@/zodSchemas/statementsPairsSchema";
 import { z } from "zod";
 import { AccessTokenParam, getHeadersJsonAccessToken } from "../sharedTypes";
+import clientConfig from "@/config/clientConfig";
 
-type getStatementPairsParams = {
-    dictionaryId: bigint;
-    offset: number;
-} & AccessTokenParam;
-type getStatementPairsReturnType = z.infer<typeof getStatementPairsSchema>;
 export async function getStatementPairs({
     accessToken,
     dictionaryId,
-    offset,
-}: getStatementPairsParams): Promise<getStatementPairsReturnType> {
+    page,
+}: {
+    dictionaryId: bigint;
+    page: number;
+} & AccessTokenParam): Promise<z.infer<typeof getStatementPairsSchema>> {
     const response = await fetch(
-        `${serverConfig.api.baseUrl}/dictionaries/${dictionaryId}/statements?offset=${offset}`,
+        `${clientConfig.api.baseUrl}/dictionaries/${dictionaryId}/statements?page=${page}`,
         {
             headers: getHeadersJsonAccessToken({ accessToken }),
         }

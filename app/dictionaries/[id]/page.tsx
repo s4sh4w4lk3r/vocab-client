@@ -18,7 +18,7 @@ export default async function page({ params }: { params: { id: string } }) {
     const getStatementsPairPromise = getStatementPairs({
         accessToken: session.accessToken,
         dictionaryId: BigInt(params.id),
-        offset: 0,
+        page: 0,
     });
 
     const [dictionary, statementPairs] = await Promise.all([
