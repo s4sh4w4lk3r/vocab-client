@@ -15,9 +15,6 @@ const configSchema = z.object({
             url: z.string().url(),
         }),
     }),
-    api: z.object({
-        baseUrl: z.string().url(),
-    }),
 });
 
 const config: z.infer<typeof configSchema> = {
@@ -31,9 +28,6 @@ const config: z.infer<typeof configSchema> = {
             secret: vars.AUTH_SECRET!,
             url: vars.AUTH_URL!,
         },
-    },
-    api: {
-        baseUrl: vars.API_URL!,
     },
 };
 
