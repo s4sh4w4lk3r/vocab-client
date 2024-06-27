@@ -14,7 +14,7 @@ export const getDictionarySchema = z.object({
 export const getDictionairesSchema = z
     .array(
         z.object({
-            id: z.bigint(),
+            id: z.coerce.bigint(),
             name: z.string().trim().min(1).max(dictionaryMaxNameLength),
             ownerId: z.string().uuid(),
             lastModified: z.coerce.date(),

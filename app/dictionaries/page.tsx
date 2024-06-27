@@ -1,10 +1,10 @@
-import { getDictionaries } from "@/api/fetch/dictionaries";
 import { auth } from "@/auth";
 import HomePanel from "@/components/dictionary/HomePanel";
 import DictionaryPreviewCard from "@/components/dictionary/DictionaryPreviewCard";
 import { HStack } from "@chakra-ui/react";
 import { Metadata } from "next";
 import React from "react";
+import { getDictionaries } from "@/api/fetch/dictionaries";
 
 export const metadata: Metadata = {
     title: "Словари",
@@ -19,8 +19,8 @@ export default async function page() {
     const dictionaries = (
         await getDictionaries({
             accessToken: session.accessToken,
-            appendAction: "Preview",
-            offset: 0,
+            page: 0,
+            appendStatements: true,
         })
     ).sort((a, b) =>
         a.lastModified.getTime() < b.lastModified.getTime() ? 1 : -1
