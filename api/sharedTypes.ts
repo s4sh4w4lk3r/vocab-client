@@ -17,7 +17,3 @@ export function getHeadersJsonAccessToken({
         "Authorization": bearerHeader.value(accessToken),
     } satisfies HeadersInit;
 }
-
-export type AppendAction = {
-    appendAction: "NotRequired" | "Preview" | "DictionaryOpened";
-};
