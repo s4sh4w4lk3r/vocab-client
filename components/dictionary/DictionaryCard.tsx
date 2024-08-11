@@ -61,6 +61,10 @@ export default function DictionaryCard({ id, name, statementPairs }: Type) {
         disclosure.onClose();
     }
 
+    function handleKeyUp(key: string) {
+        return key === "Enter" ? handleRename() : Promise.resolve();
+    }
+
     const statementsElement =
         statementPairs.length > 0 ? (
             statementPairs.map(x => (
@@ -115,6 +119,7 @@ export default function DictionaryCard({ id, name, statementPairs }: Type) {
                         <Input
                             value={newName}
                             onChange={e => setNewName(e.target.value)}
+                            onKeyUp={e => handleKeyUp(e.key)}
                         ></Input>
                     </ModalBody>
 

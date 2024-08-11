@@ -1,12 +1,12 @@
 "use server";
 
 import { auth } from "@/auth";
-import serverConfig from "@/config/serverConfig";
 import { bearerHeader } from "../sharedTypes";
 import { revalidateTag } from "next/cache";
 import RevalidationTags from "./revalidationTags";
+import clientConfig from "@/config/clientConfig";
 
-const apiUrl = serverConfig.api.baseUrl;
+const apiUrl = clientConfig.api.baseUrl;
 export async function createDictionary({ name }: { name: string }) {
     const session = await checkIsAuthenticated();
     if (!session.isAuthenticated) {
@@ -70,7 +70,7 @@ export async function renameDictionary({
     headers.append(bearerHeader.key, bearerHeader.value(session.accessToken));
 
     const respone = await fetch(
-        `${apiUrl}/dictionaries/${dictionaryId}/set/name/${encodeURIComponent(
+        `${apiUrl}/dictionaries/${dictionaryId}?name=${encodeURIComponent(
             name
         )}`,
         {

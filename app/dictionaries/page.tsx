@@ -29,7 +29,8 @@ export default async function page() {
     const dictionaryCards = dictionaries.map(x => (
         <DictionaryPreviewCard
             key={x.id}
-            {...x}
+            dictionary={x}
+            statementPairs={x.statementPairs}
         ></DictionaryPreviewCard>
     ));
 

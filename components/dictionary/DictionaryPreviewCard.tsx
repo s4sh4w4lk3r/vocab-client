@@ -14,13 +14,14 @@ import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { deleteDictionary } from "@/api/serverActions/dictionaries";
+import { getStatementPairsSchema } from "@/zodSchemas/statementsPairsSchema";
 
-type Type = Pick<
-    z.infer<typeof getDictionarySchema>,
-    "id" | "name" | "statementPairs"
->;
+type Type = {
+    dictionary: Pick<z.infer<typeof getDictionarySchema>, "id" | "name">;
+    statementPairs: z.infer<typeof getStatementPairsSchema>;
+};
 export default function DictionaryPreviewCard(params: Type) {
-    const { id, name, statementPairs } = params;
+    const { dictionary, statementPairs } = params;
 
     const router = useRouter();
     const [isHovered, setIsHovered] = useState(false);
@@ -28,7 +29,7 @@ export default function DictionaryPreviewCard(params: Type) {
 
     function handleMouseEnter() {
         setIsHovered(true);
-        router.prefetch(`/dictionaries/${id}`);
+        router.prefetch(`/dictionaries/${dictionary.id}`);
     }
 
     function handleMouseLeave() {
@@ -36,14 +37,14 @@ export default function DictionaryPreviewCard(params: Type) {
     }
 
     function handleCardClick() {
-        router.push(`/dictionaries/${id}`);
+        router.push(`/dictionaries/${dictionary.id}`);
     }
 
     async function handleDelete(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.stopPropagation();
-        await deleteDictionary({ dictionaryId: id });
+        await deleteDictionary({ dictionaryId: dictionary.id });
         toast({ status: "success", duration: 2000, title: "Словарь удален" });
     }
 
@@ -87,7 +88,7 @@ export default function DictionaryPreviewCard(params: Type) {
                     size={"md"}
                     noOfLines={2}
                 >
-                    {name}
+                    {dictionary.name}
                 </Heading>
             </CardHeader>
 
