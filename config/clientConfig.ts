@@ -10,8 +10,8 @@ const schema = z.object({
     }),
 });
 
-const apiAuthority = "api.vocab.atc";
-const authAuthority = "auth.vocab.atc";
+const apiAuthority = "api.vocab.rlx";
+const authAuthority = "auth.vocab.rlx";
 
 const config: z.infer<typeof schema> = {
     api: {
