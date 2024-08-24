@@ -4,13 +4,14 @@ import vocabConfig from "./config/serverConfig";
 import { sessionSchema, tokenSchema } from "./zodSchemas/authSchemas";
 import { JWT } from "next-auth/jwt";
 import requestRefreshOfAccessToken from "./utils/server/requestRefreshOfAccessToken";
+import clientConfig from "./config/clientConfig";
 
 const kcConfig = vocabConfig.auth.keycloak;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
         keycloak({
-            issuer: kcConfig.issuer,
+            issuer: clientConfig.auth.issuerUrl,
             clientId: kcConfig.clientId,
             clientSecret: kcConfig.secret,
         }),

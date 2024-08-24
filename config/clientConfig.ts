@@ -7,6 +7,7 @@ const schema = z.object({
     }),
     auth: z.object({
         accountUrl: z.string().url(),
+        issuerUrl: z.string().url(),
     }),
 });
 
@@ -20,6 +21,7 @@ const config: z.infer<typeof schema> = {
     },
     auth: {
         accountUrl: `http://${authAuthority}/realms/vocab/account/`,
+        issuerUrl: `http://${authAuthority}/realms/vocab`,
     },
 };
 

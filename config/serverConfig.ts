@@ -8,7 +8,6 @@ const configSchema = z.object({
         keycloak: z.object({
             clientId: z.string().trim().min(1),
             secret: z.string().trim().min(1),
-            issuer: z.string().url(),
         }),
         next: z.object({
             secret: z.string().trim().min(1),
@@ -22,7 +21,6 @@ const config: z.infer<typeof configSchema> = {
         keycloak: {
             clientId: vars.AUTH_KEYCLOAK_ID!,
             secret: vars.AUTH_KEYCLOAK_SECRET!,
-            issuer: vars.AUTH_KEYCLOAK_ISSUER!,
         },
         next: {
             secret: vars.AUTH_SECRET!,
