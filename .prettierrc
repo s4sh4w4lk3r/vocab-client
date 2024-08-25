@@ -4,7 +4,7 @@
     "htmlWhitespaceSensitivity": "css",
     "insertPragma": false,
     "jsxSingleQuote": false,
-    "printWidth": 80,
+    "printWidth": 100,
     "requirePragma": false,
     "semi": true,
     "singleQuote": false,
