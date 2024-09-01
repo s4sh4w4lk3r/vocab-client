@@ -1,3 +1,4 @@
+import clientConfig from "@/config/clientConfig";
 import serverConfig from "@/config/serverConfig";
 import { JWT, getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
@@ -43,7 +44,9 @@ function handleEmptyToken() {
 }
 
 function sendEndSessionEndpointToURL(token: JWT) {
-    const endSessionEndPoint = new URL(`${serverConfig.auth.keycloak.issuer}/protocol/openid-connect/logout`);
+    const endSessionEndPoint = new URL(
+        `${clientConfig.auth.issuerUrl}/protocol/openid-connect/logout`
+    );
     const params: Record<string, string> = logoutParams(token);
     const endSessionParams = new URLSearchParams(params);
     const response = { url: `${endSessionEndPoint.href}/?${endSessionParams}` };
