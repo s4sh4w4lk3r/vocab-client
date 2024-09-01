@@ -17,7 +17,7 @@ export enum StatusCode {
 export default z.object({
     title: z.string().trim().min(1),
     status: z.nativeEnum(StatusCode),
-    error: z.array(
+    errors: z.array(
         z.object({
             code: z.string().trim().min(1),
             description: z.string().trim().min(1),

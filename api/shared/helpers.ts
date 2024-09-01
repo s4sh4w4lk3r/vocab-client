@@ -54,7 +54,7 @@ export async function handleUnsuccessfulResponse({
         problemDetails: {
             status: response.status,
             title: response.statusText,
-            error: [
+            errors: [
                 {
                     errorType: ErrorType.Failure,
                     description: await response.text(),

@@ -23,7 +23,7 @@ export async function createDictionary({ name }: { name: string }): Promise<Acti
         headers: { "Authorization": `Bearer ${session.accessToken}` },
     });
 
-    if (!response.ok) {
+    if (response.ok) {
         const id = getIdFromEndLocationHeader({ response: response });
         return { success: true, locationId: id };
     }
@@ -31,7 +31,7 @@ export async function createDictionary({ name }: { name: string }): Promise<Acti
     return handleUnsuccessfulResponse({ response });
 }
 
-export async function deleteDictionary({ id }: { id: bigint }) {
+export async function deleteDictionary({ id }: { id: bigint }): Promise<ActionResponse> {
     const session = await checkAuth();
     if (!session.success) {
         return session;
@@ -44,14 +44,20 @@ export async function deleteDictionary({ id }: { id: bigint }) {
         headers: { "Authorization": `Bearer ${session.accessToken}` },
     });
 
-    if (!response.ok) {
+    if (response.ok) {
         return { success: true };
     }
 
     return handleUnsuccessfulResponse({ response });
 }
 
-export async function renameDictionary({ id, name }: { id: bigint; name: string }) {
+export async function renameDictionary({
+    id,
+    name,
+}: {
+    id: bigint;
+    name: string;
+}): Promise<ActionResponse> {
     const session = await checkAuth();
     if (!session.success) {
         return session;
@@ -65,7 +71,7 @@ export async function renameDictionary({ id, name }: { id: bigint; name: string 
         headers: { "Authorization": `Bearer ${session.accessToken}` },
     });
 
-    if (!response.ok) {
+    if (response.ok) {
         return { success: true };
     }
 
